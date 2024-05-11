@@ -15,6 +15,7 @@ public class AccountHelper {
         }
         
         account = new Account(username);
+        account.setPlayerPassword(password);
         account.setReservedPlayerUid(reservedUid);
         account.save();
         

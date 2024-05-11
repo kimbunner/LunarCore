@@ -34,13 +34,22 @@ public class UsernameLoginHandler implements Handler {
             return;
         }
 
+        var reget = req.account.split(";");
+
+        if (reget.length != 2){
+            res.retcode = -201;
+            res.message = "Check what you type";
+        }
+
         // Login - Get account data
-        Account account = LunarCore.getAccountDatabase().getObjectByField(Account.class, "username", req.account);
+        Account account = LunarCore.getAccountDatabase().getObjectByField(Account.class, "username", reget[0]);
 
         if (account == null) {
             // Auto create an account for the player if allowed in the config
             if (LunarCore.getConfig().getServerOptions().autoCreateAccount) {
-                account = AccountHelper.createAccount(req.account, null, 0);
+                account = AccountHelper.createAccount(reget[0], reget[1], 0);
+                res.retcode = -201;
+                res.message = "Username: "+reget[0]+" Password: "+reget[1];
             } else {
                 res.retcode = -201;
                 res.message = "Username not found.";
@@ -48,8 +57,13 @@ public class UsernameLoginHandler implements Handler {
         } 
         
         if (account != null) {
-            res.message = "OK";
-            res.data = new VerifyData(account.getUid(), account.getEmail(), account.generateDispatchToken());
+            if (reget[1].toString().contentEquals(account.getPassword())){
+                res.message = "OK";
+                res.data = new VerifyData(account.getUid(), account.getEmail(), account.getPassword(), account.generateDispatchToken());
+            } else {
+                res.retcode = -201;
+                res.message = "Wrong password.";
+            }
         }
 
         // Send result

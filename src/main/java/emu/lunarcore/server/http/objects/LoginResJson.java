@@ -12,10 +12,11 @@ public class LoginResJson {
         public boolean realperson_required = false;
         public boolean safe_mobile_required = false;
 
-        public VerifyData(String accountUid, String email, String token) {
+        public VerifyData(String accountUid, String email, String password, String token) {
             this.account.uid = accountUid;
             this.account.email = email;
             this.account.token = token;
+            this.account.password = password;
         }
     }
 
@@ -23,6 +24,7 @@ public class LoginResJson {
         public String uid;
         public String name = "";
         public String email = "";
+        public String password = "";
         public String mobile = "";
         public String is_email_verify = "0";
         public String realname = "";

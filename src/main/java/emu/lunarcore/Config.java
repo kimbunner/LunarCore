@@ -84,7 +84,7 @@ public class Config {
     
     @Getter
     public static class HttpServerConfig extends ServerConfig {
-        public boolean useSSL = true;
+        public boolean useSSL = false;
         public long regionListRefresh = 60_000; // Time in milliseconds to wait before refreshing region list cache again
 
         public HttpServerConfig(int port) {

@@ -41,7 +41,7 @@ public class TokenLoginHandler implements Handler {
             res.message = "Game account cache information error";
         } else {
             res.message = "OK";
-            res.data = new VerifyData(account.getUid(), account.getEmail(), req.token);
+            res.data = new VerifyData(account.getUid(), account.getEmail(), account.getPassword(), req.token);
         }
 
         // Result

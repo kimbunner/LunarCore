@@ -45,8 +45,17 @@ public class Account {
         return username;
     }
 
+    public String getPassword(){
+        Account account = LunarCore.getAccountDatabase().getObjectByField(Account.class, "_id", this.uid);
+        return account.password;
+    }
+
     public void setReservedPlayerUid(int uid) {
         this.reservedPlayerUid = uid;
+    }
+
+    public void setPlayerPassword(String password) {
+        this.password = password;
     }
     
     // Permissions
